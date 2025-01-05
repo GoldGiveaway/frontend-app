@@ -19,7 +19,7 @@ export default function App() {
     const { data, isLoading } = useQuery({
         queryKey: ['Index'],
         queryFn: async (): Promise<Response> => {
-            const response = await axios.post('http://127.0.0.1:8000/index', { initData: window.Telegram.WebApp.initData });
+            const response = await axios.post(process.env.REACT_APP_SERVER_URL, { initData: window.Telegram.WebApp.initData });
             return response.data;
         },
     });
