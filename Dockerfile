@@ -3,7 +3,6 @@ FROM node:18-alpine AS builder
 RUN mkdir -p /home/app/ && chown -R node:node /home/app
 WORKDIR /home/app
 COPY --chown=node:node . .
-COPY --chown=node:node .vitepress .
 
 USER node
 
