@@ -10,13 +10,13 @@ interface Channel {
 }
 
 interface Response {
-    status: 'error' | 'channels_sub';
+    status: 'error' | 'channels_sub' | 'success';
     message?: string;
     channels?: Channel[]
 }
 
 export default function App() {
-    const { data, refetch, isLoading } = useQuery({
+    const { data, isLoading } = useQuery({
         queryKey: ['Index'],
         queryFn: async (): Promise<Response> => {
             const response = await axios.post('http://127.0.0.1:8000/index', { initData: window.Telegram.WebApp.initData });
@@ -33,7 +33,9 @@ export default function App() {
     } else if (data.status == 'success') {
         window.Telegram.WebApp.MainButton.text = 'Закрыть'
         window.Telegram.WebApp.MainButton.color = '#008000'
-        window.Telegram.WebApp.MainButton.onClick(window.Telegram.WebApp.close)
+        window.Telegram.WebApp.MainButton.onClick(() => {
+            window.Telegram.WebApp.close();
+        })
         window.Telegram.WebApp.MainButton.show()
         return <div className={'flex flex-col items-center justify-center text-center mt-10'}>
             <img className={'w-[250px] h-[250px]'} src={'/UtyaDuck-success.webp'} alt=""/>
